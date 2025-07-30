@@ -41,21 +41,20 @@ Powered by FastAPI and integrated via REST API.
 
 ---
 
-## 🖼️ Screenshot Previews
+## Screenshot Previews
 
-<p float="left">
-  <img width="1919" height="911" alt="image" src="https://github.com/user-attachments/assets/9d58de33-c0b4-42ec-aa8d-ac2cd94afcf6" />
-<img width="1913" height="905" alt="image" src="https://github.com/user-attachments/assets/c120dc56-9ed1-4248-8605-2a0c41dc537b" />
+<div align="center" style="display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;">
 
-  
-</p>
+  <img src="https://github.com/user-attachments/assets/9d58de33-c0b4-42ec-aa8d-ac2cd94afcf6" alt="Home" width="30%" />
+  <img src="https://github.com/user-attachments/assets/178316e3-0379-4c3d-a4d2-300c679ea691" alt="Chord View" width="30%" />
+  <img src="https://github.com/user-attachments/assets/c120dc56-9ed1-4248-8605-2a0c41dc537b" alt="AI Assistant" width="30%" />
 
-<p float="left">
-<img width="1919" height="921" alt="image" src="https://github.com/user-attachments/assets/80660f12-f5f5-4f7d-bc90-e1b8ebf2ad83" />
+  <img src="https://github.com/user-attachments/assets/80660f12-f5f5-4f7d-bc90-e1b8ebf2ad83" alt="Mobile View" width="30%" />
+  <img src="https://github.com/user-attachments/assets/82870bb2-1e7c-4c90-8fec-51504ebf5e3b" alt="Typing State" width="30%" />
+  <img src="https://github.com/user-attachments/assets/c267743c-2774-42a9-8b41-166f1b5a1a5e" alt="Auto Suggestion" width="30%" />
 
-  <img width="1919" height="913" alt="image" src="https://github.com/user-attachments/assets/82870bb2-1e7c-4c90-8fec-51504ebf5e3b" />
+</div>
 
-</p>
 
 ---
 
