@@ -10,12 +10,12 @@ EzChords is a modern Angular-based web application that helps guitarists find, v
 
 ## 📌 Features
 
-- 🎵 View and explore guitar chords easily
-- 📱 Responsive design for mobile & desktop
-- 🔍 Smart search and filtering of chords
-- 🤖 AI Agent Integration for chord suggestions, guidance, and learning tips
-- 🗂 Organized UI with clear folder structure (Angular Universal build)
-- 🌐 Deployed with Netlify (Frontend) and Render (AI Backend)
+-  View and explore guitar chords easily
+-  Responsive design for mobile & desktop
+-  Smart search and filtering of chords
+-  AI Agent Integration for chord suggestions, guidance, and learning tips
+-  Organized UI with clear folder structure (Angular Universal build)
+-  Deployed with Netlify (Frontend) and Render (AI Backend)
 
 ---
 
