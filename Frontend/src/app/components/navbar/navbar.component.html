@@ -1,0 +1,55 @@
+<nav class="fixed top-0 left-0 w-full z-50 border-b border-gray-700 bg-gradient-to-b from-gray-900/90 via-gray-900/70 to-transparent backdrop-blur-md text-white shadow-2xl transition-all duration-500">
+  <div class="flex items-center justify-between h-20 px-6 sm:px-10 lg:px-16">
+
+    <!-- Logo -->
+    <a routerLink="/" class="text-3xl sm:text-4xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-indigo-500 tracking-wide select-none hover:scale-105 transition-transform duration-300">
+      EzChords
+    </a>
+
+    <!-- Desktop Nav Items -->
+    <div class="hidden md:flex items-center space-x-6 lg:space-x-10">
+      <ng-container *ngFor="let link of navLinks">
+        <a
+          [routerLink]="link.path"
+          routerLinkActive="text-purple-300 scale-105"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="relative text-base font-semibold px-3 py-2 tracking-wide transition duration-300 ease-in-out hover:text-indigo-300 hover:scale-105"
+        >
+          <span class="relative z-10">{{ link.label }}</span>
+          <span class="absolute left-0 bottom-0 w-full h-0.5 bg-gradient-to-r from-purple-400 to-indigo-500 scale-x-0 group-hover:scale-x-100 transition-transform duration-300 ease-out origin-left"></span>
+        </a>
+      </ng-container>
+    </div>
+
+    <!-- Mobile Menu Button -->
+    <div class="md:hidden">
+      <button (click)="toggleMenu()" class="p-2 rounded-md hover:bg-gray-800 transition duration-300">
+        <svg *ngIf="!isOpen" class="w-8 h-8" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+        <svg *ngIf="isOpen" class="w-8 h-8 rotate-90" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Dropdown Menu -->
+  <div
+    [ngClass]="{
+      'max-h-screen opacity-100 py-4 px-6 bg-gray-900/95 border-t border-gray-700': isOpen,
+      'max-h-0 opacity-0 overflow-hidden': !isOpen
+    }"
+    class="md:hidden flex flex-col space-y-4 transition-all duration-500 ease-in-out"
+  >
+    <ng-container *ngFor="let link of navLinks">
+      <a
+        [routerLink]="link.path"
+        (click)="closeMenu()"
+        class="text-lg font-semibold tracking-wide hover:text-purple-300 transform transition duration-300 ease-in-out hover:translate-x-2"
+      >
+        {{ link.label }}
+      </a>
+    </ng-container>
+  </div>
+</nav>

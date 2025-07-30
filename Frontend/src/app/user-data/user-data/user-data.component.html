@@ -1,0 +1,9 @@
+<h2>My Notes</h2>
+
+<textarea [(ngModel)]="content" rows="6" cols="40" placeholder="Type your guitar notes here..."></textarea>
+
+<br />
+
+<button (click)="save()">Save</button>
+
+<p *ngIf="message">{{ message }}</p>

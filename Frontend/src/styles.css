@@ -1,0 +1,26 @@
+/* --- Animated Stars Background --- */
+#stars {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+   background: radial-gradient(ellipse at bottom, #1b2735 0%, #090a0f 100%);
+  overflow: hidden;
+  z-index: 0;
+}
+
+#stars::before {
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  background: transparent url('https://raw.githubusercontent.com/VincentGarreau/particles.js/master/demo/media/star.png') repeat top center;
+  animation: star-scroll 100s linear infinite;
+  opacity: 0.2;
+}
+
+@keyframes star-scroll {
+  0% { transform: translateY(0); }
+  100% { transform: translateY(-1000px); }
+}
+
+

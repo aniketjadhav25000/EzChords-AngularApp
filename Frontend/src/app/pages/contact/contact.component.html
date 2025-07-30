@@ -1,0 +1,164 @@
+<div id="particles-js" class="fixed top-0 left-0 w-full h-full z-[-1]"></div>
+
+<section class="border border-white/20 text-white fade-in px-4 relative overflow-hidden z-10">
+  <div class="relative mt-28 mb-20 pb-10 max-w-4xl mx-auto bg-white/5 backdrop-blur-xl rounded-3xl shadow-2xl border border-white/20 text-white overflow-hidden">
+    <!-- Rest of your content remains exactly the same -->
+    <div class="text-center pt-12 pb-6 px-6 animate-fade-in-down">
+      <h2
+        class="text-5xl md:text-6xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-500 to-pink-500 leading-tight"
+      >
+        Reach Out to Us!
+      </h2>
+      <p class="text-gray-300 text-lg mt-3 max-w-2xl mx-auto">
+        We're here to help and eager to hear from you. Whether you have questions, feedback, or collaboration ideas, don't hesitate to get in touch.
+      </p>
+    </div>
+
+    <div class="px-8 pb-6 text-center animate-fade-in-up animation-delay-100">
+      <p class="text-gray-400 text-md max-w-2xl mx-auto italic">
+        "Our mission is to empower musicians of all levels with comprehensive and accessible resources, fostering a vibrant community around the joy of playing music."
+      </p>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-8 px-8 pb-10 pt-6">
+      <div class="bg-white/5 p-8 rounded-2xl border border-white/10 shadow-lg animate-fade-in-up">
+        <h3 class="text-3xl font-bold text-white mb-6 flex items-center">
+          <i class="fas fa-info-circle text-purple-400 mr-3 text-2xl"></i>
+          Direct Contact
+        </h3>
+        <p class="text-gray-300 mb-4">
+          Prefer to reach us directly? Here's how you can connect:
+        </p>
+        <ul class="space-y-4 text-lg">
+          <li class="flex items-center text-gray-200">
+            <i class="fas fa-envelope text-blue-400 mr-3"></i>
+            <a href="mailto:support&#64;yourwebsite.com" class="hover:text-blue-300 transition-colors">support&#64;ezchords.com</a>
+          </li>
+          
+        </ul>
+      </div>
+
+      <form
+        (ngSubmit)="sendEmail()"
+        #contactForm="ngForm"
+        class="space-y-6 bg-white/5 p-8 rounded-2xl border border-white/10 shadow-lg animate-fade-in-up animation-delay-300"
+      >
+        <h3 class="text-3xl font-bold text-white mb-6 flex items-center">
+          <i class="fas fa-paper-plane text-pink-400 mr-3 text-2xl"></i>
+          Send Us a Message
+        </h3>
+        <div class="relative group">
+          <input
+            type="text"
+            name="name"
+            [(ngModel)]="name"
+            placeholder=" "
+            required
+            class="peer w-full px-5 py-3 rounded-lg bg-white/10 border border-white/20 placeholder-transparent text-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+          />
+          <label for="name" class="absolute left-5 -top-3.5 text-gray-300 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 peer-focus:-top-3.5 peer-focus:text-blue-400 peer-focus:text-sm">Your Name</label>
+        </div>
+
+        <div class="relative group">
+          <input
+            type="email"
+            name="email"
+            [(ngModel)]="email"
+            placeholder=" "
+            required
+            email
+            class="peer w-full px-5 py-3 rounded-lg bg-white/10 border border-white/20 placeholder-transparent text-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+          />
+          <label for="email" class="absolute left-5 -top-3.5 text-gray-300 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 peer-focus:-top-3.5 peer-focus:text-blue-400 peer-focus:text-sm">Your Email</label>
+        </div>
+
+        <div class="relative group">
+          <textarea
+            name="message"
+            [(ngModel)]="message"
+            rows="5"
+            placeholder=" "
+            required
+            class="peer w-full px-5 py-3 rounded-lg bg-white/10 border border-white/20 placeholder-transparent text-white focus:outline-none focus:ring-2 focus:ring-blue-400 transition"
+          ></textarea>
+          <label for="message" class="absolute left-5 -top-3.5 text-gray-300 text-sm transition-all peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-400 peer-placeholder-shown:top-3 peer-focus:-top-3.5 peer-focus:text-blue-400 peer-focus:text-sm">Your Message</label>
+        </div>
+
+        <div class="text-center pt-4">
+          <button
+            type="submit"
+            [disabled]="sending || !contactForm.form.valid"
+            class="bg-gradient-to-r from-blue-500 to-cyan-500 text-white font-semibold px-10 py-4 rounded-full shadow-lg hover:shadow-xl hover:scale-105 transform transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center mx-auto"
+          >
+            <span *ngIf="!sending" class="flex items-center">
+              <i class="fas fa-paper-plane mr-2"></i> Send Message
+            </span>
+            <span *ngIf="sending" class="flex items-center">
+              <i class="fas fa-spinner fa-spin mr-2"></i> Sending...
+            </span>
+          </button>
+        </div>
+
+        <p *ngIf="successMsg" class="text-green-400 mt-4 text-center text-lg animate-fade-in">
+          <i class="fas fa-check-circle mr-2"></i> {{ successMsg }}
+        </p>
+        <p *ngIf="errorMsg" class="text-red-500 mt-4 text-center text-lg animate-fade-in">
+          <i class="fas fa-times-circle mr-2"></i> {{ errorMsg }}
+        </p>
+      </form>
+    </div>
+
+    <div class="px-8 pb-10 pt-6 animate-fade-in-up animation-delay-500">
+      <h3 class="text-3xl font-bold text-white mb-6 text-center flex items-center justify-center">
+        <i class="fas fa-question-circle text-teal-400 mr-3 text-2xl"></i>
+        Quick FAQ
+      </h3>
+      <div class="space-y-4">
+        <div class="bg-white/5 p-5 rounded-xl border border-white/10 shadow-md">
+          <h4 class="font-semibold text-xl text-white mb-2">How quickly do you respond?</h4>
+          <p class="text-gray-300">We aim to respond to all inquiries within 24-48 business hours.</p>
+        </div>
+        <div class="bg-white/5 p-5 rounded-xl border border-white/10 shadow-md">
+          <h4 class="font-semibold text-xl text-white mb-2">Can I request a specific song's chords?</h4>
+          <p class="text-gray-300">Yes, please use the form above to send us your song requests! We're always expanding our library.</p>
+        </div>
+        <div class="bg-white/5 p-5 rounded-xl border border-white/10 shadow-md">
+          <h4 class="font-semibold text-xl text-white mb-2">Do you offer guitar lessons?</h4>
+          <p class="text-gray-300">Currently, we only provide chord libraries. However, we might introduce lessons in the future!</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col items-center gap-4 text-white text-4xl pt-10 animate-fade-in-up animation-delay-700">
+      <p class="text-gray-300 text-lg">Connect with us on social media:</p>
+      <div class="flex justify-center gap-8">
+        <a
+          href="https://github.com/aniketjadhav25000"
+          target="_blank"
+          class="inline-flex items-center justify-center cursor-pointer transition-transform duration-300 ease-in-out hover:scale-125 hover:rotate-6 hover:drop-shadow-lg hover:text-[#4078c0]"
+          aria-label="GitHub Profile"
+        >
+          <i class="fa-brands fa-github"></i>
+        </a>
+
+        <a
+          href="https://www.linkedin.com/in/aniket-jadhav-a72466236/"
+          target="_blank"
+          class="inline-flex items-center justify-center cursor-pointer transition-transform duration-300 ease-in-out hover:scale-125 hover:-rotate-6 hover:drop-shadow-lg hover:text-[#0a66c2]"
+          aria-label="LinkedIn Profile"
+        >
+          <i class="fa-brands fa-linkedin"></i>
+        </a>
+
+        <a
+          href="https://www.instagram.com/aniket.j_2003/"
+          target="_blank"
+          class="inline-flex items-center justify-center cursor-pointer transition-transform duration-300 ease-in-out hover:scale-125 hover:rotate-6 hover:drop-shadow-lg hover:text-[#e1306c]"
+          aria-label="Instagram Profile"
+        >
+          <i class="fa-brands fa-instagram"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

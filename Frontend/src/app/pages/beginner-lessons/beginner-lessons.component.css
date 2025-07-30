@@ -1,0 +1,131 @@
+/* Animated Stars Background */
+#stars {
+  background: #000;
+  background-image: url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 0L7.805 3.514L12 3.657L8.5 6.515L10.18 12L6 9.257L1.82 12L3.5 6.515L0 3.657L4.195 3.514L6 0Z' fill='%23ffffff' fill-opacity='0.3'/%3E%3C/svg%3E");
+  animation: animStar 50s linear infinite;
+}
+
+#stars:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 0L3.902 1.757L6 1.828L4.5 3.257L5.09 6L3 4.628L0.91 6L1.5 3.257L0 1.828L2.098 1.757L3 0Z' fill='%23ffffff' fill-opacity='0.3'/%3E%3C/svg%3E");
+  animation: animStar 100s linear infinite;
+}
+
+@keyframes animStar {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+/* Animations */
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-pulse-gentle {
+  animation: pulseGentle 2s infinite;
+}
+
+@keyframes pulseGentle {
+  0%, 100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Lesson Cards */
+.lesson-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.lesson-card:hover {
+  transform: translateY(-5px);
+}
+
+.lesson-card.completed {
+  position: relative;
+  overflow: hidden;
+}
+
+.lesson-card.completed::after {
+  content: "✓ Completed";
+  position: absolute;
+  top: 8px;
+  right: -30px;
+  background: rgba(99, 102, 241, 0.9);
+  color: white;
+  font-size: 0.7rem;
+  font-weight: bold;
+  padding: 2px 30px;
+  transform: rotate(45deg);
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+}
+
+/* Glow Button */
+.glow-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.glow-button::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    to bottom right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(30deg);
+  animation: shine 3s infinite;
+  opacity: 0;
+}
+
+.glow-button:hover::before {
+  opacity: 1;
+}
+
+@keyframes shine {
+  0% {
+    transform: rotate(30deg) translate(-30%, -30%);
+  }
+  20% {
+    transform: rotate(30deg) translate(100%, 100%);
+  }
+  100% {
+    transform: rotate(30deg) translate(100%, 100%);
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .lesson-card.completed::after {
+    font-size: 0.6rem;
+    right: -35px;
+  }
+}

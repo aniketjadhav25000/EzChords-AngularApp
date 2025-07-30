@@ -1,0 +1,297 @@
+<!-- ✨ Enhanced Animated Background -->
+
+<div class="fixed top-0 left-0 w-full h-full z-0 bg-gradient-to-b from-gray-900/80 to-gray-950/90"></div>
+
+<!-- 🎸 Main Content Section -->
+<!-- Increased py-16 to py-24 for more vertical padding -->
+<section class="relative z-10 min-h-screen text-white mt-10 py-24 px-4 sm:px-6 flex flex-col items-center">
+  <!-- 🌟 Hero Section -->
+  <div class="mb-16 text-center animate-fade-in-up max-w-4xl">
+    <div class="inline-flex items-center gap-2 bg-indigo-900/30 border border-indigo-700/50 rounded-full px-4 py-1.5 mb-4">
+      <span class="text-indigo-300">🎸 Beginner Friendly</span>
+    </div>
+    <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold mb-4 bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 to-purple-400 leading-tight">
+      Your Guitar Journey Starts Here
+    </h1>
+    <p class="text-lg sm:text-xl text-slate-300 max-w-3xl mx-auto">
+      Master the fundamentals with our step-by-step lessons, interactive tools, and personalized guidance.
+    </p>
+    
+    <!-- 🎯 Progress Tracker -->
+    <div class="mt-8 bg-gray-800/50 rounded-xl p-4 max-w-md mx-auto border border-gray-700/50">
+      <div class="flex justify-between items-center mb-2">
+        <span class="text-sm font-medium text-gray-300">Your Progress</span>
+        <span class="text-xs font-bold text-indigo-300">{{getCompletionPercentage()}}% Complete</span>
+      </div>
+      <div class="w-full bg-gray-700 rounded-full h-2.5">
+        <div class="bg-gradient-to-r from-indigo-500 to-purple-600 h-2.5 rounded-full" [style.width.%]="getCompletionPercentage()"></div>
+      </div>
+    </div>
+  </div>
+
+  
+
+
+  <!-- 📚 Main Lesson Grid -->
+  <!-- Added my-12 for more vertical margin around the grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-7xl w-full px-4 my-12 ">
+    <ng-container *ngFor="let lesson of lessons">
+      <div class="relative group">
+        <div 
+          class="lesson-card bg-gray-800/50 hover:bg-gray-700/60 rounded-xl p-6 h-full flex flex-col transition-all duration-300 border border-gray-700/50 hover:border-indigo-500/30 shadow-lg hover:shadow-indigo-500/10"
+          [class.completed]="isCompleted(lesson.id)"
+          [class.ring-2]="isCompleted(lesson.id)"
+          [class.ring-indigo-500]="isCompleted(lesson.id)"
+        >
+          <!-- Lesson Header -->
+          <div class="flex items-start justify-between mb-3">
+            <div class="text-3xl mb-2">{{lesson.icon}}</div>
+            <button 
+              (click)="toggleProgress(lesson.id); $event.stopPropagation()"
+              class="w-6 h-6 rounded-full border flex items-center justify-center transition"
+              [class.bg-indigo-600]="isCompleted(lesson.id)"
+              [class.border-indigo-500]="isCompleted(lesson.id)"
+              [class.border-gray-600]="!isCompleted(lesson.id)"
+            >
+              <svg *ngIf="isCompleted(lesson.id)" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 text-white" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+              </svg>
+            </button>
+          </div>
+          
+          <!-- Lesson Content -->
+          <h3 class="text-xl font-bold mb-2">{{lesson.title}}</h3>
+          <p class="text-gray-300 mb-4 flex-grow">{{lesson.description}}</p>
+          
+          <!-- Lesson Actions -->
+          <div class="flex items-center justify-between mt-auto pt-4 border-t border-gray-700/50">
+            <span class="text-xs font-medium px-2 py-1 rounded bg-gray-700/50 text-gray-300">
+              {{lesson.duration || '10-15 min'}}
+            </span>
+            <button 
+              (click)="openVideo(lesson.videoId); $event.stopPropagation()"
+              class="flex items-center gap-1 text-sm font-medium text-indigo-300 hover:text-indigo-200 transition"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+              </svg>
+              Watch Lesson
+            </button>
+          </div>
+        </div>
+        
+        <!-- Hover effect -->
+        <div class="absolute inset-0 rounded-xl bg-gradient-to-br from-indigo-500/10 to-purple-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+      </div>
+    </ng-container>
+  </div>
+
+<!-- 🎓 Guided Learning Path Section -->
+<div class="mt-24 max-w-5xl w-full bg-gradient-to-br from-indigo-800 to-purple-900 text-white rounded-2xl shadow-2xl border border-indigo-700/40 p-8 sm:p-12 animate-fade-in-up">
+  <div class="flex flex-col lg:flex-row items-center gap-8">
+    
+    <!-- Icon + Title + Description -->
+    <div class="flex-1 text-center lg:text-left">
+      <div class="inline-flex items-center gap-3 text-indigo-200 bg-white/10 border border-indigo-400/30 px-4 py-2 rounded-full mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-indigo-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M12 6v6h4M20 12a8 8 0 11-16 0 8 8 0 0116 0z" />
+        </svg>
+        <span class="font-medium">Next Step</span>
+      </div>
+      <h2 class="text-3xl sm:text-4xl font-extrabold text-indigo-100 mb-4">
+        Continue Your Guitar Journey
+      </h2>
+      <p class="text-indigo-200 max-w-xl">
+        Ready to move beyond the basics? Explore our structured learning path for beginners — track progress, master skills, and unlock new lessons!
+      </p>
+    </div>
+
+    <!-- CTA Button -->
+    <div class="flex-shrink-0">
+      <button
+        (click)="goToLearningPath()"
+        class="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white font-semibold py-4 px-8 rounded-full shadow-lg transition-transform transform hover:scale-105 flex items-center gap-2"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M9 5l7 7-7 7" />
+        </svg>
+        Go to Learning Path
+      </button>
+    </div>
+  </div>
+</div>
+
+
+  <!-- 🎼 Bonus Features Section -->
+  <div class="mt-24 w-full max-w-6xl">
+    <h2 class="text-3xl font-bold mb-8 text-center bg-clip-text text-transparent bg-gradient-to-r from-amber-300 to-orange-400">
+      Accelerate Your Learning
+    </h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Practice Tracker -->
+      <div class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-6 border border-gray-700/50 shadow-lg">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="bg-amber-500/10 p-2 rounded-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold">Practice Tracker</h3>
+        </div>
+        <p class="text-gray-300 mb-4">Track your daily practice streaks and build consistent habits.</p>
+        <div class="flex gap-2">
+          <div *ngFor="let day of [1,2,3,4,5,6,7]" 
+               class="h-2 flex-grow rounded-full"
+               [class.bg-amber-400]="day <= currentPracticeStreak"
+               [class.bg-gray-700]="day > currentPracticeStreak">
+          </div>
+        </div>
+        <p class="text-xs text-gray-400 mt-2">{{currentPracticeStreak}} day streak - keep going!</p>
+      </div>
+      
+      <!-- Chord Library -->
+      <div class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-6 border border-gray-700/50 shadow-lg">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="bg-emerald-500/10 p-2 rounded-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold">Chord Library</h3>
+        </div>
+        <p class="text-gray-300 mb-4">Interactive reference for all essential beginner chords.</p>
+        <div class="flex flex-wrap gap-2">
+          <span *ngFor="let chord of commonChords" class="px-3 py-1 bg-emerald-900/30 text-emerald-300 rounded-full text-sm border border-emerald-800/50">
+            {{chord}}
+          </span>
+        </div>
+      </div>
+      
+      <!-- Metronome -->
+      <div class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-xl p-6 border border-gray-700/50 shadow-lg">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="bg-cyan-500/10 p-2 rounded-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold">Metronome</h3>
+        </div>
+        <p class="text-gray-300 mb-4">Practice with perfect timing. Adjust tempo to your skill level.</p>
+        <div class="flex items-center gap-4">
+          <button (click)="decreaseTempo()" class="p-2 rounded-full bg-gray-700 hover:bg-gray-600 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z" clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div class="text-2xl font-bold flex-grow text-center">{{metronomeTempo}} BPM</div>
+          <button (click)="increaseTempo()" class="p-2 rounded-full bg-gray-700 hover:bg-gray-600 transition">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd" />
+            </svg>
+          </button>
+        </div>
+        <button 
+          (click)="toggleMetronome()"
+          class="w-full mt-4 py-2 rounded-lg font-medium transition"
+          [class.bg-cyan-600]="metronomeActive"
+          [class.bg-gray-700]="!metronomeActive"
+          [class.text-white]="metronomeActive"
+          [class.text-gray-300]="!metronomeActive"
+        >
+          {{metronomeActive ? 'Stop' : 'Start'}} Metronome
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- 🎯 Call to Action -->
+  <div class="mt-20 text-center animate-fade-in-up delay-700 max-w-2xl mx-auto">
+    <h3 class="text-2xl font-bold mb-4">Ready to take your skills to the next level?</h3>
+    <p class="text-gray-300 mb-6">Join thousands of students who've started their musical journey with us.</p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+     <!-- Start Free-Trial Button -->
+<button
+  type="button"
+  (click)="handleChord()"
+  class="glow-button bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700
+         text-white font-bold py-3 px-8 rounded-full shadow-xl transition hover:scale-105 flex items-center gap-2"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3-2a1 1 0 000-1.664z" />
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>
+  Chord library
+</button>
+
+<!-- View-All-Lessons Button -->
+<button
+  type="button"
+  (click)="handleLearning()"
+  class="border border-gray-600 hover:border-indigo-500 text-gray-300 hover:text-white
+         font-bold py-3 px-8 rounded-full shadow transition hover:scale-105 flex items-center gap-2"
+>
+  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+          d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+  </svg>
+  View All Lessons
+</button>
+
+    </div>
+  </div>
+</section>
+
+<!-- 🎥 Video Modal -->
+<div *ngIf="showModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm pt-16">
+  <div class="relative w-full max-w-4xl h-[85vh] bg-[#1e1e2f] text-white border border-white/10 rounded-2xl shadow-2xl overflow-hidden transition-all duration-300 ease-in-out">
+
+    <!-- ✖️ Close Button -->
+    <button 
+      (click)="closeVideo()"
+      class="absolute top-4 right-4 z-10 p-2 group rounded-full bg-white/10 hover:bg-red-600 transition duration-300"
+      aria-label="Close video modal"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg"
+           class="h-6 w-6 text-white group-hover:scale-110 group-hover:rotate-90 transition-transform duration-300 ease-in-out"
+           fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+
+    <!-- 🎬 Video Section -->
+    <div class="w-full h-[75%] relative bg-black rounded-t-2xl">
+      <iframe 
+        [src]="sanitizedVideoUrl" 
+        class="w-full h-full rounded-t-2xl" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    <!-- 📝 Lesson Info + 🔗 Open in Tab -->
+    <div class="h-[25%] p-4 flex flex-col justify-between bg-gradient-to-br from-gray-900 to-gray-800 text-xs sm:text-sm overflow-auto">
+      <div>
+        <h3 class="text-base sm:text-lg font-semibold mb-1 tracking-wide">{{ getCurrentLessonTitle() }}</h3>
+        <p class="text-gray-300 leading-snug">{{ getCurrentLessonDescription() }}</p>
+      </div>
+      <div class="flex justify-end mt-2">
+        <button 
+          (click)="openInNewTab()"
+          class="inline-flex items-center gap-1 px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg shadow-md transition"
+        >
+          🔗 Open in New Tab
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>

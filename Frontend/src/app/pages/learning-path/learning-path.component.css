@@ -1,0 +1,24 @@
+/* Smooth transitions for hover effects */
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+/* Card hover effect */
+.hover\:bg-gray-750:hover {
+  background-color: rgba(55, 65, 81, 0.5);
+}
+
+/* Image hover zoom effect */
+img {
+  transition: transform 0.5s ease;
+}
+
+/* Button shadow effects */
+.shadow-lg {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+.hover\:shadow-amber-500\/20:hover {
+  box-shadow: 0 10px 15px -3px rgba(245, 158, 11, 0.2), 0 4px 6px -2px rgba(245, 158, 11, 0.1);
+}

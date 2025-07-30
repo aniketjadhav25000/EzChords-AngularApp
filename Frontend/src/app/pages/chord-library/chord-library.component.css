@@ -1,0 +1,218 @@
+/* Custom range input styles */
+input[type="range"] {
+  -webkit-appearance: none;
+  height: 4px;
+  background: #4b5563;
+  border-radius: 5px;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #60a5fa;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  background: #3b82f6;
+  transform: scale(1.2);
+}
+
+/* For Firefox */
+input[type="range"]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #60a5fa;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  border: none;
+}
+
+input[type="range"]::-moz-range-thumb:hover {
+  background: #3b82f6;
+  transform: scale(1.2);
+}
+
+/* Enhanced animations */
+.hover-scale {
+  transition: transform 0.2s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.05);
+}
+
+/* Chord card styles with enhanced hover effects */
+.chord-card {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.chord-card:hover {
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+}
+
+/* Practice mode highlight with enhanced animation */
+.practice-highlight {
+  animation: practiceGlow 2s ease-in-out infinite alternate;
+}
+
+@keyframes practiceGlow {
+  0% {
+    box-shadow: 0 0 5px rgba(147, 51, 234, 0.5);
+  }
+  100% {
+    box-shadow: 0 0 20px rgba(147, 51, 234, 0.8), 0 0 30px rgba(147, 51, 234, 0.4);
+  }
+}
+
+/* Enhanced fade-in animation */
+.animate-fade-in {
+  animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Toast notification with slide animation */
+.toast-notification {
+  animation: slideInRight 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideInRight {
+  from {
+    transform: translateX(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Volume slider with gradient background */
+.volume-slider {
+  background: linear-gradient(to right, #3b82f6 0%, #3b82f6 var(--value, 70%), #4b5563 var(--value, 70%), #4b5563 100%);
+}
+
+/* Button hover effects */
+button {
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+/* Enhanced loading states */
+.loading-shimmer {
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+  background-size: 200% 100%;
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+/* Metronome pulse animation */
+.metronome-pulse {
+  animation: metronomePulse 1s ease-in-out infinite;
+}
+
+@keyframes metronomePulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.2);
+    opacity: 0.7;
+  }
+}
+
+/* Progress bar gradient */
+.progress-gradient {
+  background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+}
+
+/* Card entrance animation */
+.chord-card {
+  animation: cardEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.chord-card:nth-child(1) { animation-delay: 0.1s; }
+.chord-card:nth-child(2) { animation-delay: 0.2s; }
+.chord-card:nth-child(3) { animation-delay: 0.3s; }
+.chord-card:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes cardEntrance {
+  from {
+    opacity: 0;
+    transform: translateY(30px) scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Responsive design enhancements */
+@media (max-width: 768px) {
+  .chord-card {
+    margin: 0.5rem;
+  }
+  
+  .toast-notification {
+    left: 1rem;
+    right: 1rem;
+    transform: none;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .chord-card {
+    border: 2px solid;
+  }
+  
+  button {
+    border: 2px solid;
+  }
+}
+
+/* Dark mode enhancements */
+@media (prefers-color-scheme: dark) {
+  .volume-slider::-webkit-slider-thumb {
+    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.1);
+  }
+}

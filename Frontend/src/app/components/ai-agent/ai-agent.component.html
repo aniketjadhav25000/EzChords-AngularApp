@@ -1,0 +1,133 @@
+<!-- Floating Button - Mobile Optimized -->
+<div class="fixed bottom-4 right-4 z-50 group">
+  <button
+    (click)="toggleChat()"
+    class="w-14 h-14 bg-gradient-to-br from-purple-600 to-indigo-800 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center justify-center text-3xl relative focus:outline-none focus:ring-2 focus:ring-purple-400 active:scale-95"
+    aria-label="Open AI Assistant"
+    [attr.aria-expanded]="showChat"
+  >
+    <div class="relative w-7 h-7">
+      <svg *ngIf="!showChat" xmlns="http://www.w3.org/2000/svg" class="h-full w-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+      </svg>
+      <svg *ngIf="showChat" xmlns="http://www.w3.org/2000/svg" class="h-full w-full" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </div>
+
+    <span *ngIf="newMessageAlert" class="absolute top-0 right-0 w-3 h-3 bg-red-500 rounded-full animate-pulse"></span>
+  </button>
+</div>
+<!-- Chat Panel -->
+<div
+  *ngIf="showChat"
+  class="fixed inset-x-0 bottom-0 z-[60] h-[70vh] max-h-[600px] sm:inset-auto sm:bottom-5 sm:right-5 sm:w-[96vw] sm:max-w-[420px] sm:h-[85vh] bg-gray-900/95 backdrop-blur-sm sm:backdrop-blur-none sm:bg-gray-900 border border-purple-700/50 sm:border-purple-700 text-white rounded-t-2xl sm:rounded-2xl shadow-xl sm:shadow-2xl overflow-hidden flex flex-col transition-transform duration-300 ease-out"
+  [class]="showChat ? 'translate-y-0' : 'translate-y-full'"
+>
+  <!-- Header -->
+  <div class="flex justify-between items-center px-4 py-3 bg-gradient-to-r from-purple-800/95 to-indigo-900/95 sm:from-purple-800 sm:to-indigo-900 rounded-t-2xl sm:rounded-t-2xl shadow-sm">
+    <h4 class="text-lg font-bold tracking-wide text-white flex items-center gap-2">
+      <span class="bg-white/10 p-1.5 rounded-full">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+        </svg>
+      </span>
+      <span>Ez AI</span>
+    </h4>
+    <button (click)="toggleChat()" class="text-white text-2xl hover:text-gray-300 transition-transform transform hover:rotate-90 focus:outline-none active:scale-90" aria-label="Close chat">
+      &times;
+    </button>
+  </div>
+
+  <!-- Chat Body -->
+  <div 
+    #chatHistoryContainer
+    class="flex-1 overflow-y-auto custom-scrollbar p-3 space-y-3"
+  >
+    <div *ngIf="chatHistory.length === 0" class="flex flex-col items-center justify-center h-full text-gray-400 text-center px-4">
+      <div class="relative mb-4">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-14 w-14 text-purple-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+        </svg>
+      </div>
+      <p class="text-base font-medium mb-1">How can I help with your guitar journey?</p>
+      <p class="text-sm text-gray-500">Ask about chords, songs, or techniques</p>
+      
+      <div class="grid grid-cols-2 gap-2 mt-5 w-full max-w-xs">
+        <button 
+          *ngFor="let prompt of quickPrompts"
+          (click)="question = prompt; ask()"
+          class="bg-gray-800 hover:bg-gray-700 text-xs py-2 px-3 rounded-lg transition-colors duration-200 text-left truncate"
+        >
+          {{ prompt }}
+        </button>
+      </div>
+    </div>
+
+    <div *ngFor="let message of chatHistory; trackBy: trackByMessage" class="flex" [ngClass]="{'justify-end': message.sender === 'user', 'justify-start': message.sender === 'ai'}">
+      <div class="max-w-[90%] sm:max-w-[80%] px-3 py-2 rounded-lg shadow-sm text-sm break-words"
+           [ngClass]="{
+             'bg-indigo-600 text-white rounded-br-none': message.sender === 'user',
+             'bg-gray-800 text-gray-100 rounded-bl-none': message.sender === 'ai'
+           }">
+        <div [innerHTML]="parseMarkdown(message.text)"></div>
+        <div class="text-xs mt-1 opacity-70 text-right" *ngIf="message.timestamp">{{ message.timestamp | date:'shortTime' }}</div>
+      </div>
+    </div>
+
+    <div *ngIf="loading" class="flex justify-start">
+      <div class="bg-gray-800 text-gray-100 px-3 py-2 rounded-lg rounded-bl-none shadow-sm text-sm flex items-center space-x-1.5">
+        <div class="typing-dot"></div>
+        <div class="typing-dot" style="animation-delay: 0.2s"></div>
+        <div class="typing-dot" style="animation-delay: 0.4s"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Input Area -->
+  <div class="p-3 bg-gray-800/80 border-t border-gray-700 sm:border-purple-700 flex items-end gap-2">
+    <button 
+      (click)="toggleVoiceInput()"
+      class="flex-shrink-0 w-9 h-9 rounded-full bg-gray-700 hover:bg-gray-600 flex items-center justify-center text-gray-300 transition-colors duration-200"
+      [class.bg-purple-600]="isListening"
+      aria-label="Voice input"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+      </svg>
+    </button>
+    
+    <div class="flex-1 relative">
+      <textarea
+        [(ngModel)]="question"
+        (keydown)="handleEnter($event)"
+        rows="1"
+        placeholder="Ask about guitar..."
+        class="w-full p-2.5 pr-10 bg-gray-700/90 focus:bg-gray-700 text-white border border-gray-600 focus:border-purple-500 rounded-xl focus:outline-none focus:ring-1 focus:ring-purple-500 resize-none transition-all duration-200 max-h-32 custom-scrollbar-thin"
+        #textInput
+      ></textarea>
+      <button 
+        *ngIf="question"
+        (click)="question = ''"
+        class="absolute right-2.5 top-2.5 text-gray-400 hover:text-white transition-colors duration-200"
+        aria-label="Clear input"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <button
+      (click)="ask()"
+      [disabled]="loading || !question.trim()"
+      class="flex-shrink-0 w-9 h-9 bg-gradient-to-r from-purple-600 to-violet-700 hover:from-purple-700 hover:to-violet-800 rounded-full text-white flex items-center justify-center transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none active:scale-95"
+      aria-label="Send message"
+    >
+      <svg *ngIf="!loading" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 transform rotate-45" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+      </svg>
+      <div *ngIf="loading" class="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+    </button>
+  </div>
+</div>

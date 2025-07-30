@@ -1,0 +1,197 @@
+<div class="min-h-screen bg-gradient-to-br from-purple-900 via-blue-900 to-indigo-900 text-white px-4 sm:px-6 lg:px-8 py-12">
+  <div class="max-w-6xl mx-auto">
+
+    <!-- Loading State -->
+    <div *ngIf="!currentPhase" class="text-center py-20">
+      <div class="animate-spin rounded-full h-16 w-16 border-b-2 border-white mx-auto mb-4"></div>
+      <p class="text-xl text-gray-300">Loading phase details...</p>
+    </div>
+
+    <!-- Main Content -->
+    <div *ngIf="currentPhase" class="space-y-8">
+
+      <!-- Header Section -->
+      <div class="text-center space-y-4">
+        <div class="flex items-center justify-center space-x-4">
+          <span class="text-6xl">{{ currentPhase.icon }}</span>
+          <div>
+            <h1 class="text-4xl sm:text-5xl font-extrabold">
+              Phase {{ currentPhase.id }}: {{ currentPhase.title }}
+            </h1>
+            <p class="text-xl text-blue-200 mt-2">{{ currentPhase.description }}</p>
+          </div>
+        </div>
+        
+        <!-- Phase Info -->
+        <div class="flex flex-wrap justify-center gap-4 mt-6">
+          <div class="bg-gray-800/50 backdrop-blur rounded-full px-4 py-2 flex items-center space-x-2">
+            <span>⏱️</span>
+            <span class="text-sm">{{ currentPhase.duration }}</span>
+          </div>
+          <div class="bg-gray-800/50 backdrop-blur rounded-full px-4 py-2 flex items-center space-x-2">
+            <span>📊</span>
+            <span class="text-sm" [ngClass]="getDifficultyColor(currentPhase.difficulty)">
+              {{ currentPhase.difficulty }}
+            </span>
+          </div>
+          <div class="bg-gray-800/50 backdrop-blur rounded-full px-4 py-2 flex items-center space-x-2">
+            <span>✅</span>
+            <span class="text-sm">{{ progress }}% Complete</span>
+          </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="w-full max-w-md mx-auto bg-gray-700 rounded-full h-3 overflow-hidden">
+          <div 
+            class="h-full bg-gradient-to-r from-green-500 to-blue-500 transition-all duration-500 ease-out"
+            [style.width.%]="progress">
+          </div>
+        </div>
+      </div>
+
+      <!-- Prerequisites (if any) -->
+      <div *ngIf="currentPhase.prerequisites && currentPhase.prerequisites.length > 0" 
+           class="bg-yellow-900/30 border border-yellow-600 rounded-xl p-4">
+        <h3 class="text-lg font-semibold text-yellow-300 mb-2 flex items-center">
+          <span class="mr-2">⚠️</span>Prerequisites
+        </h3>
+        <ul class="text-yellow-200 text-sm">
+          <li *ngFor="let prereq of currentPhase.prerequisites" class="flex items-center">
+            <span class="mr-2">•</span>{{ prereq }}
+          </li>
+        </ul>
+      </div>
+
+      <!-- Main Content Grid -->
+      <div class="grid lg:grid-cols-2 gap-8">
+        
+        <!-- Skills Section -->
+        <div class="bg-gray-800/70 backdrop-blur border border-gray-600 rounded-2xl p-6 space-y-6">
+          <h2 class="text-2xl font-bold text-amber-300 flex items-center">
+            <span class="mr-3">📖</span>What You'll Learn
+          </h2>
+          <div class="space-y-3">
+            <div *ngFor="let skill of currentPhase.skills; let i = index" 
+                 class="flex items-start space-x-3 p-3 bg-gray-700/50 rounded-lg hover:bg-gray-700/70 transition-colors">
+              <div class="flex-shrink-0 w-6 h-6 rounded-full bg-amber-500 text-black text-xs font-bold flex items-center justify-center mt-0.5">
+                {{ i + 1 }}
+              </div>
+              <span class="text-gray-200">{{ skill }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Practice Section -->
+        <div class="bg-gray-800/70 backdrop-blur border border-gray-600 rounded-2xl p-6 space-y-6">
+          <h2 class="text-2xl font-bold text-blue-300 flex items-center">
+            <span class="mr-3">📝</span>Daily Practice
+          </h2>
+          <div class="space-y-4">
+            <div *ngFor="let practice of currentPhase.practice; let i = index" 
+                 class="bg-gray-700/50 rounded-lg p-4 hover:bg-gray-700/70 transition-all duration-200"
+                 [ngClass]="{'ring-2 ring-green-500': completedPractices.has(i)}">
+              <div class="flex items-center justify-between mb-3">
+                <div class="flex items-center space-x-3">
+                  <span class="text-2xl">{{ practice.emoji }}</span>
+                  <div>
+                    <div class="font-medium text-white">{{ practice.activity }}</div>
+                    <div class="text-sm text-gray-400">{{ practice.duration }} minutes</div>
+                  </div>
+                </div>
+                <div class="flex items-center space-x-2">
+                  <!-- Timer Button -->
+                  <button 
+                    *ngIf="currentPracticeIndex !== i"
+                    (click)="startPracticeTimer(i)"
+                    class="bg-blue-600 hover:bg-blue-700 text-white text-xs px-3 py-1 rounded-full transition-colors">
+                    ⏱️ Start
+                  </button>
+                  
+                  <!-- Active Timer -->
+                  <div *ngIf="currentPracticeIndex === i && isTimerRunning" 
+                       class="flex items-center space-x-2">
+                    <span class="text-blue-300 font-mono text-sm">{{ formatTime(timeRemaining) }}</span>
+                    <button 
+                      (click)="stopPracticeTimer()"
+                      class="bg-red-600 hover:bg-red-700 text-white text-xs px-2 py-1 rounded-full">
+                      ⏹️
+                    </button>
+                  </div>
+                  
+                  <!-- Complete Button -->
+                  <button 
+                    (click)="togglePracticeComplete(i)"
+                    class="text-2xl hover:scale-110 transition-transform"
+                    [ngClass]="completedPractices.has(i) ? 'text-green-500' : 'text-gray-500 hover:text-green-400'">
+                    {{ completedPractices.has(i) ? '✅' : '⭕' }}
+                  </button>
+                </div>
+              </div>
+              
+              <!-- Progress indicator for this practice -->
+              <div *ngIf="currentPracticeIndex === i && isTimerRunning" 
+                   class="w-full bg-gray-600 rounded-full h-1">
+                <div class="bg-blue-500 h-1 rounded-full transition-all duration-1000"
+                     [style.width.%]="calculateTimerProgress(practice)">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Challenge Section -->
+      <div class="bg-gradient-to-r from-purple-800/70 to-pink-800/70 backdrop-blur border border-purple-500 rounded-2xl p-6">
+        <h2 class="text-2xl font-bold text-purple-300 mb-4 flex items-center">
+          <span class="mr-3">🚀</span>
+          {{ currentPhase.id === '3' ? 'Final Challenge' : 'Phase Challenge' }}
+        </h2>
+        <p class="text-lg text-purple-100 leading-relaxed">{{ currentPhase.challenge }}</p>
+        <div class="mt-4 flex items-center space-x-4">
+          <div class="text-sm text-purple-200">Complete all practice items to unlock this challenge</div>
+          <div *ngIf="progress === 100" class="text-green-400 text-sm font-semibold flex items-center">
+            <span class="mr-1">🎉</span>Challenge Unlocked!
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-wrap justify-center gap-4">
+        <button
+          (click)="goToLearningPath()"
+          class="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition-all hover:scale-105">
+          ⬅ Back to Learning Path
+        </button>
+        
+        <button 
+          *ngIf="currentPhase.nextPhase"
+          (click)="goToNextPhase()"
+          class="bg-gradient-to-r from-pink-600 to-purple-600 hover:from-purple-700 hover:to-pink-700 text-white font-semibold px-6 py-3 rounded-full shadow-lg transition-all hover:scale-105">
+          Next Phase ⮕
+        </button>
+      </div>
+
+      <!-- Success Message -->
+      <div *ngIf="progress === 100" 
+           class="bg-gradient-to-r from-green-800/70 to-emerald-800/70 backdrop-blur border border-green-500 rounded-2xl p-6 text-center animate-bounce-once">
+        <div class="text-4xl mb-2">🎉</div>
+        <h3 class="text-2xl font-bold text-green-300 mb-2">Congratulations!</h3>
+        <p class="text-green-200">You've completed all practice activities for this phase. You're ready for the challenge!</p>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<style>
+@keyframes bounce-once {
+  0%, 20%, 53%, 80%, 100% { transform: translate3d(0,0,0); }
+  40%, 43% { transform: translate3d(0,-10px,0); }
+  70% { transform: translate3d(0,-5px,0); }
+  90% { transform: translate3d(0,-2px,0); }
+}
+
+.animate-bounce-once {
+  animation: bounce-once 1s ease-out;
+}
+</style>

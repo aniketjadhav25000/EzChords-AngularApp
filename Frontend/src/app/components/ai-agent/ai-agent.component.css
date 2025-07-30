@@ -1,0 +1,135 @@
+/* Animation for chat panel slide-up and fade-in */
+@keyframes slide-up-fade {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slide-up-fade {
+  animation: slide-up-fade 0.3s ease-out forwards;
+}
+
+/* Custom scrollbar for chat history */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #2d3748;
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background-color: #8b5cf6;
+  border-radius: 10px;
+  border: 2px solid #2d3748;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background-color: #a78bfa;
+}
+
+/* Custom scrollbar for textarea (thinner version) */
+.custom-scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+}
+/* In your global styles.css */
+.fixed.bottom-4.right-4.z-50 ~ .fixed.bottom-4.right-4.z-50 {
+  display: none;
+}
+.custom-scrollbar-thin::-webkit-scrollbar-track {
+  background: #4a5568;
+  border-radius: 10px;
+}
+
+.custom-scrollbar-thin::-webkit-scrollbar-thumb {
+  background-color: #a78bfa;
+  border-radius: 10px;
+  border: 1px solid #4a5568;
+}
+
+.custom-scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background-color: #c4b5fd;
+}
+
+/* Animation for the floating button */
+@keyframes bounce-slow {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+.animate-bounce-slow {
+  animation: bounce-slow 2s infinite ease-in-out;
+}
+
+/* Typing indicator dots animation */
+.typing-dot {
+  width: 6px;
+  height: 6px;
+  background-color: #a0aec0;
+  border-radius: 50%;
+  display: inline-block;
+  animation: typing-dot-animation 1.4s infinite ease-in-out;
+}
+
+.typing-dot:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typing-dot:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes typing-dot-animation {
+  0%, 60%, 100% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-5px);
+  }
+}
+
+/* Mobile-specific styles */
+@media (max-width: 640px) {
+  .chat-panel {
+    width: 100%;
+    height: 70vh;
+    bottom: 0;
+    top: auto;
+    left: 0;
+    right: auto;
+    border-radius: 1rem 1rem 0 0;
+    max-width: 100%;
+    max-height: 70vh;
+  }
+}
+
+/* Transition for chat panel */
+.transition-transform {
+  transition-property: transform;
+}
+
+.duration-300 {
+  transition-duration: 300ms;
+}
+
+.ease-out {
+  transition-timing-function: ease-out;
+}
+
+.translate-y-0 {
+  transform: translateY(0);
+}
+
+.translate-y-full {
+  transform: translateY(100%);
+}

@@ -1,0 +1,535 @@
+/* Optimized CSS */
+
+/* Existing CSS for animated stars background */
+#stars {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+  background: #0a0a1a url("data:image/svg+xml,%3Csvg width='12' height='12' viewBox='0 0 12 12' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6 0L7.805 3.514L12 3.657L8.5 6.515L10.18 12L6 9.257L1.82 12L3.5 6.515L0 3.657L4.195 3.514L6 0Z' fill='%23ffffff' fill-opacity='0.2'/%3E%3C/svg%3E") repeat;
+  animation: bgStarAnim 55s linear infinite;
+}
+
+#stars::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url("data:image/svg+xml,%3Csvg width='6' height='6' viewBox='0 0 6 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 0L3.902 1.757L6 1.828L4.5 3.257L5.09 6L3 4.628L0.91 6L1.5 3.257L0 1.828L2.098 1.757L3 0Z' fill='%23ffffff' fill-opacity='0.2'/%3E%3C/svg%3E") repeat;
+  animation: bgStarAnim 110s linear infinite;
+}
+
+@keyframes bgStarAnim {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-100%);
+  }
+}
+
+body,
+.dark-bg {
+  background: linear-gradient(to bottom, #18192a 0%, #0c0c18 100%);
+}
+
+.dark-glass,
+.glass-card,
+.feature-card,
+.testimonial-card {
+  background: rgba(34, 31, 57, 0.54); /* Base for glass effect */
+  backdrop-filter: blur(18px) saturate(140%);
+  border: 1.5px solid rgba(99, 102, 241, 0.15); /* Subtle border for definition */
+  box-shadow: 0 8px 36px 0 rgba(99, 102, 241, 0.1); /* Soft shadow */
+  transition: all 0.28s cubic-bezier(0.4, 2, 0.2, 1);
+  transform-style: preserve-3d; /* Enable 3D transforms for children */
+}
+.glass-card:hover,
+.testimonial-card:hover,
+.feature-card:hover {
+  background: rgba(49, 33, 94, 0.62); /* Slightly darker on hover */
+  border-color: rgba(167, 139, 250, 0.32); /* Lighter border on hover */
+  box-shadow: 0 8px 40px 0 #818cf877; /* More pronounced shadow on hover */
+  /* Add subtle 3D tilt on hover */
+  transform: translateY(-1.5px) scale(1.02) rotateX(1deg) rotateY(1deg); /* Reduced tilt for subtlety */
+}
+
+/* Section backgrounds */
+.bg-section {
+  background: linear-gradient(120deg, #23233b 60%, #1e1b4b 100%);
+}
+
+/* --- Hero Section --- */
+.hero-gradient {
+  background: linear-gradient(to right, #6366f1 10%, #a78bfa 80%);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
+}
+.hero-badge {
+  background: rgba(67, 56, 202, 0.23);
+  border: 1px solid rgba(99, 102, 241, 0.24);
+  color: #a5b4fc;
+  border-radius: 9999px;
+  padding: 0.4em 1.2em;
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 1.2rem;
+  display: inline-block;
+  backdrop-filter: blur(10px); /* Add blur for glass effect */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+.hero-title {
+  font-size: 2.8rem; /* Slightly larger base font */
+  font-weight: 800;
+  margin-bottom: 1.1rem;
+  background: linear-gradient(90deg, #a5b4fc 0%, #c4b5fd 45%, #818cf8 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  letter-spacing: -0.03em; /* Tighter letter spacing */
+  line-height: 1.05; /* Tighter line height */
+  text-shadow: 0 3px 8px rgba(0, 0, 0, 0.4); /* Subtle text shadow */
+}
+@media (min-width: 640px) {
+  .hero-title {
+    font-size: 3.6rem;
+  } /* Larger on small screens */
+}
+@media (min-width: 768px) {
+  .hero-title {
+    font-size: 4.5rem;
+  } /* Even larger on medium screens */
+}
+@media (min-width: 1024px) {
+  .hero-title {
+    font-size: 5.2rem;
+  } /* Max size on large screens */
+}
+.hero-desc {
+  color: #c7d2fe;
+  font-size: 1.25rem; /* Slightly larger font size */
+  max-width: 40rem; /* Increased max-width */
+  margin: 0 auto 1.8rem auto;
+  font-weight: 400;
+  line-height: 1.6; /* Improved readability */
+}
+
+/* 3D for Hero Guitar and elements */
+.guitar-3d-container {
+  perspective: 1000px; /* Establishes a 3D context */
+}
+
+.guitar-3d-element,
+.pick-3d-element,
+.note-3d-element {
+  transform-style: preserve-3d;
+  transform: rotateY(0deg) rotateX(0deg) translateZ(0px); /* Base transform */
+  transition: transform 0.6s ease-out; /* Slower transition for smoother effect */
+}
+
+/* Example animation for guitar and elements */
+.hero-animate:hover .guitar-3d-element {
+  transform: rotateY(12deg) rotateX(5deg) translateZ(25px); /* More pronounced */
+}
+.hero-animate:hover .pick-3d-element {
+  transform: rotateY(-15deg) rotateX(-8deg) translateZ(40px) scale(1.15); /* More pronounced */
+}
+.hero-animate:hover .note-3d-element:nth-child(1) {
+  transform: translateZ(20px) rotateY(8deg) scale(1.1); /* More pronounced */
+}
+.hero-animate:hover .note-3d-element:nth-child(2) {
+  transform: translateZ(30px) rotateY(-12deg) scale(1.1); /* More pronounced */
+}
+.hero-animate:hover .note-3d-element:nth-child(3) {
+  transform: translateZ(18px) rotateY(15deg) scale(1.1); /* More pronounced */
+}
+
+/* --- Progress Tracker --- */
+.progress-card {
+  background: rgba(30, 27, 58, 0.6);
+  border: 1.2px solid #3730a3cc;
+  border-radius: 1rem;
+  box-shadow: 0 2px 14px #6366f133;
+  padding: 1.2rem 1.4rem;
+  margin: 1.7rem auto 0 auto;
+  max-width: 340px;
+}
+.progress-bar-bg {
+  background: #26264a;
+  border-radius: 999px;
+  height: 0.6rem;
+  width: 100%;
+  margin-top: 0.2rem;
+}
+.progress-bar-fill {
+  background: linear-gradient(to right, #6366f1, #a78bfa 90%);
+  border-radius: 999px;
+  height: 0.6rem;
+  transition: width 0.5s cubic-bezier(0.4, 2, 0.2, 1);
+}
+
+/* --- Cards & Grids --- */
+.grid-main {
+  gap: 1.5rem;
+  max-width: 82rem;
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+@media (min-width: 768px) {
+  .grid-main {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1024px) {
+  .grid-main {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.card {
+  background: rgba(30, 27, 58, 0.68);
+  border-radius: 1.2rem;
+  border: 1.5px solid #3730a355;
+  box-shadow: 0 2px 16px #6366f122;
+  padding: 2.2rem 2rem 1.6rem 2rem;
+  transition: all 0.21s cubic-bezier(0.4, 2, 0.2, 1);
+}
+.card:hover {
+  background: rgba(99, 102, 241, 0.1);
+  border-color: #a78bfa80;
+  box-shadow: 0 4px 22px #818cf877;
+}
+.card.completed {
+  position: relative;
+  overflow: hidden;
+  border-color: #6366f1cc;
+}
+.card.completed::after {
+  content: "✓ Completed";
+  position: absolute;
+  top: 10px;
+  right: -34px;
+  background: #6366f1f2;
+  color: white;
+  font-size: 0.8rem;
+  font-weight: bold;
+  padding: 2px 38px;
+  transform: rotate(42deg);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  z-index: 10;
+}
+
+/* 3D effects for feature, song, and testimonial cards */
+.feature-3d-card,
+.song-3d-card,
+.testimonial-3d-card {
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+  transform-style: preserve-3d;
+}
+
+.feature-3d-card:hover {
+  transform: translateY(-8px) translateZ(15px) rotateX(2deg) rotateY(-2deg);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), 0 0 30px #a78bfaee;
+}
+
+.song-3d-card:hover {
+  transform: translateY(-8px) translateZ(15px) rotateX(-2deg) rotateY(2deg);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), 0 0 30px #f472b6ee;
+}
+
+.testimonial-3d-card:hover {
+  transform: translateY(-8px) translateZ(15px) rotateX(3deg) rotateY(3deg);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), 0 0 30px #818cf8ee;
+}
+
+/* --- Glow Button --- */
+.glow-button {
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 0 18px #6366f1bb;
+  transition: all 0.38s cubic-bezier(0.4, 2, 0.2, 1); /* Slower transition */
+}
+.glow-button:hover {
+  box-shadow: 0 0 30px #a78bfaee, 0 0 12px #818cf8cc;
+  transform: translateY(-2px) scale(1.04); /* More pronounced lift */
+}
+.glow-button::before {
+  content: "";
+  position: absolute;
+  top: -60%;
+  left: -50%;
+  width: 210%;
+  height: 210%;
+  background: linear-gradient(
+    to bottom right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.18) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: rotate(30deg);
+  animation: shine 2.6s infinite;
+  opacity: 0;
+  pointer-events: none;
+}
+.glow-button:hover::before {
+  opacity: 1;
+}
+@keyframes shine {
+  0% {
+    transform: rotate(30deg) translate(-30%, -30%);
+  }
+  20% {
+    transform: rotate(30deg) translate(100%, 100%);
+  }
+  100% {
+    transform: rotate(30deg) translate(100%, 100%);
+  }
+}
+
+/* --- Section Headings --- */
+.section-title {
+  font-size: 2.6rem; /* Slightly larger */
+  font-weight: 800;
+  margin-bottom: 1.2rem;
+  background: linear-gradient(90deg, #fbbf24 0%, #f472b6 45%, #6366f1 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  text-align: center;
+  letter-spacing: -0.02em; /* Tighter spacing */
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); /* Subtle text shadow */
+}
+
+/* --- Animations --- */
+.animate-fade-in-up {
+  animation: fadeInUp 0.9s cubic-bezier(0.4, 2, 0.2, 1) forwards;
+}
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-pulse-gentle {
+  animation: pulseGentle 2.2s infinite;
+}
+@keyframes pulseGentle {
+  0%,
+  100% {
+    opacity: 0.85;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+/* Global floating animation for pseudo-3D effect */
+@keyframes float {
+  0% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-5px) translateX(3px) rotate(1deg);
+  }
+  50% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(5px) translateX(-3px) rotate(-1deg);
+  }
+  100% {
+    transform: translateY(0px) translateX(0px) rotate(0deg);
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* More dynamic pick animation */
+@keyframes pick-float {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  33% {
+    transform: translateY(-12px) translateX(6px) rotate(20deg);
+  } /* More movement */
+  66% {
+    transform: translateY(-7px) translateX(-6px) rotate(-15deg);
+  } /* More movement */
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+
+.animate-pick-float {
+  animation: pick-float 6s ease-in-out infinite;
+}
+
+/* --- Miscellaneous --- */
+.border-indigo {
+  border-color: #6366f1 !important;
+}
+.bg-indigo {
+  background: #6366f1 !important;
+}
+.text-indigo {
+  color: #a5b4fc !important;
+}
+.bg-gradient-indigo {
+  background: linear-gradient(90deg, #6366f1 0%, #a78bfa 100%) !important;
+}
+.bg-gradient-amber {
+  background: linear-gradient(90deg, #fbbf24 0%, #f472b6 100%) !important;
+}
+
+/* Responsive adjustments */
+@media (max-width: 640px) {
+  .card.completed::after {
+    font-size: 0.68rem;
+    right: -30px;
+  }
+  .hero-title {
+    font-size: 2.2rem;
+    letter-spacing: -0.01em;
+  } /* Adjust for small screens */
+  .hero-desc {
+    font-size: 1rem;
+  }
+  .section-title {
+    font-size: 1.8rem;
+  } /* Adjust for small screens */
+
+  /* Specific mobile adjustments for sections */
+  section {
+    margin-bottom: 3.5rem; /* Reduce section bottom margin */
+  }
+
+  .feature-card,
+  .testimonial-card {
+    padding: 1.5rem; /* Reduce card padding */
+  }
+
+  .feature-card .text-xl,
+  .testimonial-card .text-lg {
+    font-size: 1.125rem; /* Slightly smaller heading for cards */
+  }
+
+  .feature-card .text-base,
+  .testimonial-card .text-sm {
+    font-size: 0.875rem; /* Smaller paragraph text for cards */
+  }
+
+  .song-3d-card .h-36 {
+    height: 10rem; /* Adjust song card image height for smaller screens */
+  }
+
+  .song-3d-card .p-3 {
+    padding: 0.75rem; /* Reduce song card padding */
+  }
+
+  .song-3d-card .text-lg {
+    font-size: 1rem; /* Adjust song title font size */
+  }
+
+  .song-3d-card .text-xs {
+    font-size: 0.75rem; /* Adjust song artist/difficulty font size */
+  }
+
+  /* Adjustments for container padding */
+  .container.max-w-7xl.px-4.mb-14.scroll-animate > div,
+  .container.max-w-4xl.px-4.mb-10.scroll-animate > div {
+    padding: 1.5rem !important;
+  }
+
+  .container.max-w-7xl.px-4.mb-14.scroll-animate h2 {
+    margin-bottom: 1rem; /* Reduce title bottom margin */
+  }
+
+  .container.max-w-7xl.px-4.mb-14.scroll-animate p.text-base {
+    margin-bottom: 1rem; /* Reduce description bottom margin */
+  }
+
+  .container.max-w-4xl.px-4.mb-10.scroll-animate h2 {
+    font-size: 1.5rem !important;
+  } /* Adjust CTA title font size */
+
+  .container.max-w-4xl.px-4.mb-10.scroll-animate p.text-base {
+    margin-bottom: 1rem;
+  } /* Reduce CTA description bottom margin */
+
+  .container.max-w-7xl.px-4.py-8.border-t {
+    /* Adjust footer padding */
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+}
+
+/* Additional custom styles */
+.interactive-icon {
+  transition: transform 0.3s ease-out, filter 0.3s ease-out;
+}
+.group:hover .interactive-icon {
+  transform: scale(1.1);
+  filter: brightness(1.2);
+}
+
+/* Scroll-triggered animation classes */
+.scroll-animate {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.9s cubic-bezier(0.4, 2, 0.2, 1),
+    transform 0.9s cubic-bezier(0.4, 2, 0.2, 1);
+}
+
+.scroll-animate.animate-fade-in-up-scroll {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Fall from top and custom float for hero section elements */
+@keyframes fall-from-top {
+  0% {
+    transform: translateY(-100vh) scale(0.5); /* Start far above and smaller */
+    opacity: 0;
+  }
+  70% {
+    transform: translateY(10%) scale(1.1); /* Briefly overshoot for a bouncy effect */
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0%) scale(1); /* Settle at its original position */
+    opacity: 1;
+  }
+}
+
+@keyframes float-custom {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px); /* Adjust float height */
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+.animate-fall-from-top {
+  animation: fall-from-top 1.5s ease-out forwards; /* Adjust duration and timing function */
+}
+
+.animate-float-custom {
+  animation: float-custom 3s ease-in-out infinite alternate; /* Adjust duration, timing, and iteration */
+}
