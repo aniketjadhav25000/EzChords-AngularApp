@@ -1,4 +1,4 @@
-# EzChords 🎸
+# EzChords (Angular App with AI integration)
 
 EzChords is a modern Angular-based web application that helps guitarists find, view, and practice guitar chords easily. The app includes a powerful AI agent that assists users with personalized suggestions, tips, and chord identification — all backed by a Render-hosted FastAPI service.
 
