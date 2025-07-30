@@ -41,6 +41,26 @@ Powered by FastAPI and integrated via REST API.
 
 ---
 
+## 🖼️ Screenshot Previews
+
+<p float="left">
+  <img src="./screenshots/home.png" width="45%" alt="Home Screen"/>
+  <img src="./screenshots/chord-detection.png" width="45%" alt="Chord Detection"/>
+</p>
+
+<p float="left">
+  <img src="./screenshots/ai-response.png" width="45%" alt="AI Response"/>
+  <img src="./screenshots/dark-mode.png" width="45%" alt="Dark Mode Support"/>
+</p>
+
+---
+
+## 🚀 Project Setup Instructions
+
+### ✅ Install dependencies
+```bash
+npm install
+
 ## 🚀 Getting Started
 
 ### 1. Clone the repository
