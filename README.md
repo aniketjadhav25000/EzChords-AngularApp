@@ -44,13 +44,17 @@ Powered by FastAPI and integrated via REST API.
 ## 🖼️ Screenshot Previews
 
 <p float="left">
-  <img src="./screenshots/home.png" width="45%" alt="Home Screen"/>
-  <img src="./screenshots/chord-detection.png" width="45%" alt="Chord Detection"/>
+  <img width="1919" height="911" alt="image" src="https://github.com/user-attachments/assets/9d58de33-c0b4-42ec-aa8d-ac2cd94afcf6" />
+<img width="1913" height="905" alt="image" src="https://github.com/user-attachments/assets/c120dc56-9ed1-4248-8605-2a0c41dc537b" />
+
+  
 </p>
 
 <p float="left">
-  <img src="./screenshots/ai-response.png" width="45%" alt="AI Response"/>
-  <img src="./screenshots/dark-mode.png" width="45%" alt="Dark Mode Support"/>
+<img width="1919" height="921" alt="image" src="https://github.com/user-attachments/assets/80660f12-f5f5-4f7d-bc90-e1b8ebf2ad83" />
+
+  <img width="1919" height="913" alt="image" src="https://github.com/user-attachments/assets/82870bb2-1e7c-4c90-8fec-51504ebf5e3b" />
+
 </p>
 
 ---
@@ -61,9 +65,12 @@ Powered by FastAPI and integrated via REST API.
 ```bash
 npm install
 
+```
 ## 🚀 Getting Started
 
 ### 1. Clone the repository
 ```bash
 git clone https://github.com/aniketjadhav25000/EzChords-AngularApp.git
 cd EzChords-AngularApp
+
+```
